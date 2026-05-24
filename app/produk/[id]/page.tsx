@@ -179,8 +179,8 @@ export default async function ProdukPage({ params }: { params: Promise<{ id: str
                     </div>
                     <div style={{ fontSize: 12, color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: 6 }}>
                       <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                        <span style={{ width: 8, height: 8, borderRadius: '50%', background: seller.status === 'online' ? 'var(--color-success)' : 'var(--text-muted)' }} />
-                        {seller.status === 'online' ? 'Online' : 'Terakhir online 25 menit lalu'}
+                        <span style={{ width: 8, height: 8, borderRadius: '50%', background: (seller as any).status === 'online' ? 'var(--color-success)' : 'var(--text-muted)' }} />
+                        {(seller as any).status === 'online' ? 'Online' : 'Terakhir online 25 menit lalu'}
                       </span>
                     </div>
                   </div>
