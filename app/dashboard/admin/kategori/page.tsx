@@ -5,7 +5,7 @@ import { Plus, Edit2, Trash2, Settings, X } from 'lucide-react';
 import IconMapper from '@/components/layout/IconMapper';
 
 export default function KategoriAdminPage() {
-  const [katList, setKatList] = useState(initialKategoris);
+  const [katList, setKatList] = useState<any[]>(initialKategoris);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
   const [editingKat, setEditingKat] = useState<any>(null);
@@ -66,8 +66,8 @@ export default function KategoriAdminPage() {
       if (tempSubName && tempSubName.trim() !== '') {
         setKatList(katList.map(k => {
           if (k.id === subModal.katId) {
-            const newSub = { id: `sub-${Date.now()}`, nama: tempSubName, icon: 'Box' };
-            return { ...k, subkategori: [...k.subkategori, newSub] };
+            const newSub = { id: `sub-${Date.now()}`, nama: tempSubName, slug: tempSubName.toLowerCase().replace(/\s+/g, '-'), icon: 'Box', produkCount: 0, katalog: [] };
+            return { ...k, subkategori: [...(k.subkategori || []), newSub] };
           }
           return k;
         }));
@@ -136,7 +136,7 @@ export default function KategoriAdminPage() {
                 <div>
                   <label style={{ fontSize: 12, fontWeight: 600, color: 'var(--text-muted)', display: 'block', marginBottom: 4, textTransform: 'uppercase' }}>Maks. Kirim (SLA)</label>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <input type="number" className="input" value={kat.sla || (kat.id === 'k-001' ? 1 : 3)} onChange={(e) => updateKatField(kat.id, 'sla', Number(e.target.value))} style={{ width: 80 }}/>
+                    <input type="number" className="input" value={(kat as any).sla || (kat.id === 'k-001' ? 1 : 3)} onChange={(e) => updateKatField(kat.id, 'sla', Number(e.target.value))} style={{ width: 80 }}/>
                     <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>hari</span>
                   </div>
                 </div>
